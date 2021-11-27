@@ -16,3 +16,13 @@ export type ChatRoom = {
   lastMessage: LastMessage
   newMessages?: number
 }
+
+export type SingleMessage = {
+  id: string
+  content: string
+  createdAt: string
+  user: {
+    id: string
+    name: string
+  }
+}
