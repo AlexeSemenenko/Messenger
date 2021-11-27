@@ -4,7 +4,7 @@ import React from 'react'
 
 import styles from './styles'
 
-function ChatRoomHeader(props) {
+function ChatRoomHeader(props: any) {
   return (
     <View style={[styles.container]}>
       <Image
@@ -12,7 +12,7 @@ function ChatRoomHeader(props) {
         style={styles.img}
       />
 
-      <Text style={styles.text}>Mate</Text>
+      <Text style={styles.text}>{props.children}</Text>
 
       <AntDesign name="videocamera" size={24} color="black" />
       <Feather name="phone" size={24} color="black" style={{ marginLeft: 10 }} />

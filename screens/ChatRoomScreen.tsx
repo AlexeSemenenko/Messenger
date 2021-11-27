@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, FlatList, SafeAreaView } from 'react-native'
-import { useRoute } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/core'
 
 import Message from '../components/Message'
 import MessageInput from '../components/MessageInput'
@@ -14,7 +14,9 @@ const styles = StyleSheet.create({
 })
 
 function ChatRoomScreen(): JSX.Element {
-  const route = useRoute()
+  const navigation = useNavigation()
+
+  navigation.setOptions({ title: 'Elon Musk' })
 
   return (
     <SafeAreaView style={styles.page}>
