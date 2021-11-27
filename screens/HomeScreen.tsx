@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function TabOneScreen() {
+function HomeScreen() {
   return (
     <View style={styles.page}>
       <FlatList
@@ -21,8 +21,7 @@ function TabOneScreen() {
         )}
       />
     </View>
-
   )
 }
 
-export default TabOneScreen
+export default HomeScreen
