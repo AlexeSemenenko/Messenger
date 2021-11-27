@@ -1,28 +1,39 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
+import { SingleMessage } from '../../types/types'
+
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    margin: 10,
+    marginBottom: 10,
     borderRadius: 15,
-    width: '75%',
+    maxWidth: '75%',
   },
+  containerMe: {
+    backgroundColor: 'lightgrey',
+    marginLeft: 'auto',
+    marginRight: 10,
+  },
+  containerMate: {
+    backgroundColor: '#3777F0',
+    marginLeft: 10,
+    marginRight: 'auto',
+  }
 })
 
-function Message(): JSX.Element {
-  const isMe = true
+type Props = {
+  message: SingleMessage
+}
+const myId = 'u1'
+
+function Message(props: Props): JSX.Element {
+  const isMe = props.message.user.id === myId
 
   return (
-    <View style={[
-      styles.container,
-      {
-        backgroundColor: isMe ? 'lightgrey' : '#3777F0',
-        marginLeft: isMe ? 'auto' : 10,
-      }
-    ]}>
+    <View style={[styles.container, isMe ? styles.containerMe : styles.containerMate]}>
       <Text style={{ color: isMe ? 'black' : 'white'}}>
-        Message
+        {props.message.content}
       </Text>
     </View>
   )
