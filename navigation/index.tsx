@@ -1,12 +1,14 @@
-import * as React from 'react'
+import React from 'react'
 import { ColorSchemeName } from 'react-native'
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+import LinkingConfiguration from './LinkingConfiguration'
+
 import ChatRoomScreen from '../screens/ChatRoomScreen'
 import HomeScreen from '../screens/HomeScreen'
-import { RootStackParamList } from '../types'
-import LinkingConfiguration from './LinkingConfiguration'
+import HomeHeader from '../components/HomeHeader'
+import ChatRoomHeader from '../components/ChatRoomHeader'
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -18,15 +20,20 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
   )
 }
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      {/*@ts-ignore*/}
-      <Stack.Screen name="Chats" component={HomeScreen} />
-      {/*@ts-ignore*/}
-      <Stack.Screen name="ChatRoom" component={ChatRoomScreen} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerTitle: HomeHeader }}
+      />
+      <Stack.Screen
+        name="ChatRoom"
+        component={ChatRoomScreen}
+        options={{ headerTitle: ChatRoomHeader }}  />
     </Stack.Navigator>
   )
 }
