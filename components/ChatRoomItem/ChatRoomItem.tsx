@@ -1,5 +1,6 @@
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Text, View, Pressable } from 'react-native'
+import { useNavigation } from '@react-navigation/core'
 
 import styles from './styles'
 import { ChatRoom } from '../../types/types'
@@ -8,9 +9,15 @@ type Props = {
   chatRoom: ChatRoom
 }
 
-function ChatRoomItem( props: Props): JSX.Element {
+function ChatRoomItem(props: Props): JSX.Element {
+  const navigation = useNavigation()
+
+  function onPress(): void {
+    navigation.navigate('ChatRoom')
+  }
+
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <Image
         source={{ uri: props.chatRoom.users[1].imageUri }}
         style={styles.image}
@@ -37,7 +44,7 @@ function ChatRoomItem( props: Props): JSX.Element {
 
         <Text numberOfLines={1} style={styles.text}>{props.chatRoom.lastMessage.content}</Text>
       </View>
-    </View>
+    </Pressable>
   )
 }
 
