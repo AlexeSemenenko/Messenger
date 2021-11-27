@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, Text, View } from 'react-native'
 
 import styles from './styles'
-import { ChatRoom } from './types'
+import { ChatRoom } from '../../types/types'
 
 type Props = {
   chatRoom: ChatRoom
