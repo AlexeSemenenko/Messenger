@@ -10,16 +10,19 @@ type Props = {
 }
 
 function ChatRoomItem(props: Props): JSX.Element {
+  const mate = props.chatRoom.users[1]
+
   const navigation = useNavigation()
 
   function onPress(): void {
-    navigation.navigate('ChatRoom')
+    // @ts-ignore
+    navigation.navigate('ChatRoom', { id: props.chatRoom.id })
   }
 
   return (
     <Pressable onPress={onPress} style={styles.container}>
       <Image
-        source={{ uri: props.chatRoom.users[1].imageUri }}
+        source={{ uri: mate.imageUri }}
         style={styles.image}
       />
 
@@ -34,7 +37,7 @@ function ChatRoomItem(props: Props): JSX.Element {
       <View style={styles.secondLevelContainer}>
         <View style={styles.row}>
           <Text style={styles.name}>
-            {props.chatRoom.users[1].name}
+            {mate.name}
           </Text>
 
           <Text style={styles.text}>
