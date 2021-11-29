@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   badgeContainer: {
-    backgroundColor: '#3777F0',
+    backgroundColor: '#FF9200',
     width: 20,
     height: 20,
     justifyContent: 'center',

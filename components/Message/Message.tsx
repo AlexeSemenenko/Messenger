@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   containerMate: {
-    backgroundColor: '#3777F0',
+    backgroundColor: '#FF9200',
     marginLeft: 10,
     marginRight: 'auto',
   }

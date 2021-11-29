@@ -33,7 +33,7 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        options={{ headerTitle: ChatRoomHeader }}  />
+        options={{ headerTitle: ChatRoomHeader, headerTintColor: '#FF9200' }}  />
     </Stack.Navigator>
   )
 }
