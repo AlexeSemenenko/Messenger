@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {
-  KeyboardAvoidingView, Platform,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   TextInput,
   View,
@@ -18,20 +19,20 @@ import styles from './styles'
 function MessageInput(): JSX.Element {
   const [message, setMessage] = useState('')
 
-  function sendMessage(): void {
+  function handleSendMessage(): void {
     console.warn('sending: ', message)
     setMessage('')
   }
 
-  function onPlusClick(): void {
+  function handlePlusClick(): void {
     console.warn('plus clicked')
   }
 
-  function onPress(): void {
+  function handlePress(): void {
     if (message) {
-      sendMessage()
+      handleSendMessage()
     } else {
-      onPlusClick()
+      handlePlusClick()
     }
   }
 
@@ -56,10 +57,12 @@ function MessageInput(): JSX.Element {
         <MaterialCommunityIcons name="microphone-outline" size={24} color="grey" style={styles.icon} />
       </View>
 
-      <Pressable onPress={onPress} style={styles.buttonContainer}>
-        {message ?
-          <MaterialIcons name="send" size={20} color="white" /> :
-          <AntDesign name="plus" size={24} color="white" />
+      <Pressable onPress={handlePress} style={styles.buttonContainer}>
+        {message ? (
+            <MaterialIcons name="send" size={20} color="white" />
+          ) : (
+            <AntDesign name="plus" size={24} color="white" />
+          )
         }
       </Pressable>
     </KeyboardAvoidingView>
