@@ -27,10 +27,12 @@ function RootNavigator() {
         component={HomeScreen}
         options={{ headerTitle: HomeHeader }}
       />
+
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        options={{ headerTitle: ChatRoomHeader, headerTintColor: '#FF9200' }}  />
+        options={{ headerTitle: ChatRoomHeader, headerTintColor: '#FF9200' }}
+      />
     </Stack.Navigator>
   )
 }

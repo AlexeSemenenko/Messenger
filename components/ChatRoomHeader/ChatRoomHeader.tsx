@@ -6,7 +6,7 @@ import styles from './styles'
 
 function ChatRoomHeader(props: any) {
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
       <Image
         source={{ uri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg' }}
         style={styles.img}
@@ -15,7 +15,9 @@ function ChatRoomHeader(props: any) {
       <Text style={styles.text}>{props.children}</Text>
 
       <AntDesign name="videocamera" size={24} color="black" />
+
       <Feather name="phone" size={24} color="black" style={{ marginLeft: 10 }} />
+
       <SimpleLineIcons name="options-vertical" size={24} color="black" style={styles.icon} />
     </View>
   )
