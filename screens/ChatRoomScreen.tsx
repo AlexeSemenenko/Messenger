@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
 })
 
 function ChatRoomScreen(): JSX.Element {
-  const navigation = useNavigation()
-
-  navigation.setOptions({ title: 'Elon Musk' })
+  // const navigation = useNavigation()
+  //
+  // navigation.setOptions({ title: 'Elon Musk' })
 
   return (
     <SafeAreaView style={styles.page}>

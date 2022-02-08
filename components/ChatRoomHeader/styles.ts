@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   icon: {
-    marginHorizontal: 10,
+    marginLeft: 10,
   },
 })
 

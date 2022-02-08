@@ -31,7 +31,11 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        options={{ headerTitle: ChatRoomHeader, headerTintColor: '#FF9200' }}
+        options={{
+          headerTitle: ChatRoomHeader,
+          headerTintColor: '#FF9200',
+          headerBackTitleVisible: false,
+      }}
       />
     </Stack.Navigator>
   )
