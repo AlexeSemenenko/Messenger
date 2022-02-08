@@ -2,7 +2,7 @@ node_modules/
 .expo/
 dist/
 .idea/
-.expo-shared/
+.expo-shared
 npm-debug.*
 *.jks
 *.p8
