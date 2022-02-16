@@ -15,12 +15,8 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     textAlign: 'center',
-    marginLeft: 45,
     fontWeight: 'bold',
-  },
-  icon: {
-    marginHorizontal: 10,
-  },
+  }
 })
 
 export default styles
