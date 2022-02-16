@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import ChatRoomScreen from '../screens/ChatRoomScreen'
 import HomeScreen from '../screens/HomeScreen'
+import UsersScreen from '../screens/UsersScreen'
 import HomeHeader from '../components/HomeHeader'
 import ChatRoomHeader from '../components/ChatRoomHeader'
 
@@ -36,6 +37,16 @@ function RootNavigator() {
           headerTintColor: '#FF9200',
           headerBackTitleVisible: false,
       }}
+      />
+
+      <Stack.Screen
+        name="UsersScreen"
+        component={UsersScreen}
+        options={{
+          title: 'Users',
+          headerTintColor: '#FF9200',
+          headerBackTitleVisible: false,
+        }}
       />
     </Stack.Navigator>
   )
