@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-messenger-staging-152605-authRole",
+      "UnauthRoleArn": "arn:aws:iam::825219863764:role/amplify-messenger-staging-152605-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::825219863764:role/amplify-messenger-staging-152605-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-messenger-staging-152605-deployment",
+      "UnauthRoleName": "amplify-messenger-staging-152605-unauthRole",
+      "StackName": "amplify-messenger-staging-152605",
+      "StackId": "arn:aws:cloudformation:eu-central-1:825219863764:stack/amplify-messenger-staging-152605/c206d480-8f3c-11ec-a606-0ae95cda56e2",
+      "AmplifyAppId": "d19gwvsf2e2qag"
+    },
+    "categories": {
+      "auth": {
+        "Messenger": {}
+      }
+    }
+  }
+}
