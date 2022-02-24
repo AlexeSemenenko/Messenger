@@ -1,8 +1,9 @@
-import  React from 'react'
+import  React, { useState, useEffect } from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
+import  { DataStore } from 'aws-amplify'
 
 import UserItem from '../components/UserItem'
-import Users from '../assets/dummy-data/Users'
+import { User } from '../src/models'
 
 const styles = StyleSheet.create({
   page: {
@@ -12,10 +13,17 @@ const styles = StyleSheet.create({
 })
 
 function UsersScreen() {
+  const [users, setUsers] = useState<User[]>([])
+
+  useEffect(() => {
+      DataStore.query(User).then(setUsers)
+    }, []
+  )
+
   return (
     <View style={styles.page}>
       <FlatList
-        data={Users}
+        data={users}
         renderItem={({ item }) => (
           <UserItem user={item} />
         )}
