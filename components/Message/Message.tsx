@@ -1,7 +1,8 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
+import { Auth, DataStore } from 'aws-amplify'
 
-import { SingleMessage } from '../../types/types'
+import { Message as MessageModel, User } from '../../src/models'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,12 +24,36 @@ const styles = StyleSheet.create({
 })
 
 type Props = {
-  message: SingleMessage
+  message: MessageModel
 }
-const myId = 'u1'
 
 function Message(props: Props): JSX.Element {
-  const isMe = props.message.user.id === myId
+  const [user, setUser] = useState<User | undefined>()
+  const [isMe, setIsMe] = useState<boolean>(false)
+
+  useEffect(
+    () => {
+      DataStore.query(User, props.message.userID).then(setUser)
+    },
+    []
+  )
+
+  useEffect(
+    () => {
+      async function checkIsMe(): Promise<void> {
+        const authUser = await Auth.currentAuthenticatedUser()
+
+        setIsMe(user?.id === authUser.attributes.sub)
+      }
+
+      checkIsMe()
+    },
+    [user]
+  )
+
+  if (!user) {
+    return <ActivityIndicator />
+  }
 
   return (
     <View style={[styles.container, isMe ? styles.containerMe : styles.containerMate]}>

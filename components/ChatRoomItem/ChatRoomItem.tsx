@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/core'
 import { Auth, DataStore } from 'aws-amplify'
 
 import styles from './styles'
-import { ChatRoom , ChatRoomUser, User} from '../../src/models'
+import { ChatRoom , ChatRoomUser, User, Message} from '../../src/models'
 
 type Props = {
   chatRoom: ChatRoom
@@ -13,6 +13,7 @@ type Props = {
 function ChatRoomItem(props: Props): JSX.Element {
   // const [users, setUsers] = useState<User[]>([])
   const [user, setUser] = useState<User | null>(null)
+  const [lastMessage, setLastMessage] = useState<Message | undefined>()
 
   const navigation = useNavigation()
 
@@ -31,6 +32,17 @@ function ChatRoomItem(props: Props): JSX.Element {
       }
 
       fetchUsers()
+    },
+    []
+  )
+
+  useEffect(
+    () => {
+      if (!props.chatRoom.chatRoomLastMessageId) {
+        return
+      }
+
+      DataStore.query(Message, props.chatRoom.chatRoomLastMessageId).then(setLastMessage)
     },
     []
   )
@@ -66,11 +78,11 @@ function ChatRoomItem(props: Props): JSX.Element {
           </Text>
 
           <Text style={styles.text}>
-            {props.chatRoom.LastMessage?.createdAt}
+            {lastMessage?.createdAt}
           </Text>
         </View>
 
-        <Text numberOfLines={1} style={styles.text}>{props.chatRoom.LastMessage?.content}</Text>
+        <Text numberOfLines={1} style={styles.text}>{lastMessage?.content}</Text>
       </View>
     </Pressable>
   )

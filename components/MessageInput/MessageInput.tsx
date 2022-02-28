@@ -13,14 +13,30 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from '@expo/vector-icons'
+import { Auth, DataStore } from 'aws-amplify'
+
+import { Message, ChatRoom } from '../../src/models'
 
 import styles from './styles'
 
-function MessageInput(): JSX.Element {
+type Props = {
+   chatRoom: ChatRoom
+}
+
+function MessageInput(props: Props): JSX.Element {
   const [message, setMessage] = useState('')
 
-  function handleSendMessage(): void {
-    console.warn('sending: ', message)
+  async function handleSendMessage(): Promise<void> {
+    const user = await Auth.currentAuthenticatedUser()
+
+    const newMessage = await DataStore.save(new Message({
+      content: message,
+      userID: user.attributes.sub,
+      chatroomID: props.chatRoom.id,
+    }))
+
+    updateLastMessage(newMessage)
+
     setMessage('')
   }
 
@@ -34,6 +50,12 @@ function MessageInput(): JSX.Element {
     } else {
       handlePlusClick()
     }
+  }
+
+  async function updateLastMessage(newMessage: Message): Promise<void> {
+     DataStore.save(ChatRoom.copyOf(props.chatRoom, updatedChatRoom => {
+       updatedChatRoom.LastMessage = newMessage
+     }))
   }
 
   return (
