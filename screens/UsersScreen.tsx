@@ -15,9 +15,11 @@ const styles = StyleSheet.create({
 function UsersScreen() {
   const [users, setUsers] = useState<User[]>([])
 
-  useEffect(() => {
+  useEffect(
+    () => {
       DataStore.query(User).then(setUsers)
-    }, []
+    },
+    []
   )
 
   return (
