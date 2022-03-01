@@ -73,7 +73,7 @@ function ChatRoomScreen(): JSX.Element {
       return
     }
 
-    const fetchMessages = await DataStore.query(
+    const fetchedMessages = await DataStore.query(
       MessageModel,
       message => message.chatroomID("eq", chatRoom?.id),
       {
@@ -81,7 +81,7 @@ function ChatRoomScreen(): JSX.Element {
       }
     )
 
-    setMessages(fetchMessages)
+    setMessages(fetchedMessages)
   }
 
   if (!chatRoom) {
