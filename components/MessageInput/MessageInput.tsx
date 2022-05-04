@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import EmojiSelector from 'react-native-emoji-selector'
 import {
   KeyboardAvoidingView,
   Platform,
@@ -24,7 +25,8 @@ type Props = {
 }
 
 function MessageInput(props: Props): JSX.Element {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState<string>('')
+  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState<boolean>(false)
 
   async function handleSendMessage(): Promise<void> {
     const user = await Auth.currentAuthenticatedUser()
@@ -38,6 +40,7 @@ function MessageInput(props: Props): JSX.Element {
     updateLastMessage(newMessage)
 
     setMessage('')
+    setIsEmojiPickerOpen(false)
   }
 
   function handlePlusClick(): void {
@@ -60,33 +63,44 @@ function MessageInput(props: Props): JSX.Element {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { height: isEmojiPickerOpen ? '50%' : 'auto' }]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={100}
     >
-      <View style={styles.inputContainer}>
-        <FontAwesome name="smile-o" size={24} color="grey" style={styles.icon} />
+      <View style={styles.row}>
+        <View style={styles.inputContainer}>
+          <Pressable onPress={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}>
+            <FontAwesome name="smile-o" size={24} color="grey" style={styles.icon} />
+          </Pressable>
 
-        <TextInput
-          style={styles.input}
-          value={message}
-          onChangeText={setMessage}
-          placeholder="Message..."
-        />
+          <TextInput
+            style={styles.input}
+            value={message}
+            onChangeText={setMessage}
+            placeholder="Message..."
+          />
 
-        <Feather name="camera" size={24} color="grey" style={styles.icon} />
+          <Feather name="camera" size={24} color="grey" style={styles.icon} />
 
-        <MaterialCommunityIcons name="microphone-outline" size={24} color="grey" style={styles.icon} />
-      </View>
+          <MaterialCommunityIcons name="microphone-outline" size={24} color="grey" style={styles.icon} />
+        </View>
 
-      <Pressable onPress={handlePress} style={styles.buttonContainer}>
-        {message ? (
+        <Pressable onPress={handlePress} style={styles.buttonContainer}>
+          {message ? (
             <MaterialIcons name="send" size={20} color="white" />
           ) : (
             <AntDesign name="plus" size={24} color="white" />
           )
-        }
-      </Pressable>
+          }
+        </Pressable>
+      </View>
+
+      {isEmojiPickerOpen && (
+        <EmojiSelector
+          onEmojiSelected={emoji => setMessage(current => current + emoji)}
+          columns={8}
+        />
+      )}
     </KeyboardAvoidingView>
   )
 }
