@@ -1,18 +1,44 @@
 import { Image, Text, View } from 'react-native'
 import { AntDesign, Feather, SimpleLineIcons } from '@expo/vector-icons'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Auth, DataStore } from 'aws-amplify'
 
 import styles from './styles'
+import { ChatRoomUser, User } from '../../src/models'
 
-function ChatRoomHeader(props: any) {
+// @ts-ignore
+function ChatRoomHeader({ id, children }) {
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(
+    () => {
+      if (!id) {
+        return
+      }
+
+      async function fetchUsers(): Promise<void> {
+        const fetchedUsers = (await DataStore.query(ChatRoomUser))
+          .filter(it => it.chatRoom.id === id)
+          .map(it => it.user)
+
+        const authUser = await Auth.currentAuthenticatedUser()
+
+        setUser(fetchedUsers.find(it => it.id !== authUser.attributes.sub) || null)
+      }
+
+      fetchUsers()
+    },
+    []
+  )
+
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg' }}
+        source={{ uri: user?.imageUri }}
         style={styles.img}
       />
 
-      <Text style={styles.text}>{props.children}</Text>
+      <Text style={styles.text}>{user?.name}</Text>
 
       <AntDesign name="videocamera" size={24} color="black" />
 

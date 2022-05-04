@@ -21,10 +21,6 @@ function ChatRoomScreen(): JSX.Element {
 
   const route = useRoute()
 
-  // const navigation = useNavigation()
-  //
-  // navigation.setOptions({ title: 'Elon Musk' })
-
   useEffect(
     () => {
       fetchChatRoom()
@@ -91,7 +87,7 @@ function ChatRoomScreen(): JSX.Element {
   return (
     <SafeAreaView style={styles.page}>
       <FlatList
-        data={messages}
+        data= {messages}
         renderItem={({ item }) => <Message message={item} />}
         inverted
       />

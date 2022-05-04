@@ -32,11 +32,12 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        options={{
-          headerTitle: ChatRoomHeader,
+        options={({ route }) => ({
+          // @ts-ignore
+          headerTitle: () => <ChatRoomHeader id={route.params?.id} />,
           headerTintColor: '#FF9200',
           headerBackTitleVisible: false,
-      }}
+      })}
       />
 
       <Stack.Screen
