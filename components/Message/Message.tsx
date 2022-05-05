@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { Auth, DataStore } from 'aws-amplify'
+// @ts-ignore
+import { S3Image } from 'aws-amplify-react-native'
 
 import { Message as MessageModel, User } from '../../src/models'
 
@@ -31,6 +33,8 @@ function Message(props: Props): JSX.Element {
   const [user, setUser] = useState<User | undefined>()
   const [isMe, setIsMe] = useState<boolean>(false)
 
+  const { width } = useWindowDimensions()
+
   useEffect(
     () => {
       DataStore.query(User, props.message.userID).then(setUser)
@@ -57,6 +61,18 @@ function Message(props: Props): JSX.Element {
 
   return (
     <View style={[styles.container, isMe ? styles.containerMe : styles.containerMate]}>
+      {props.message.image && (
+        <S3Image
+          style={{
+            width: width * 0.7,
+            aspectRatio: 4 / 3,
+            marginBottom: props.message.content ? 10 : 0
+          }}
+          imgKey={props.message.image}
+          resixeMode="contain"
+        />
+      )}
+
       <Text style={{ color: isMe ? 'black' : 'white'}}>
         {props.message.content}
       </Text>

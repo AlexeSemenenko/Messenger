@@ -3939,6 +3939,11 @@
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/@types/stack-utils/-/stack-utils-2.0.1.tgz"
   "version" "2.0.1"
 
+"@types/uuid@^8.3.4":
+  "integrity" "sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/@types/uuid/-/uuid-8.3.4.tgz"
+  "version" "8.3.4"
+
 "@types/yargs-parser@*":
   "integrity" "sha1-O5ziSJkZ2eT+pDm3aRarw0st8Sk="
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/@types/yargs-parser/-/yargs-parser-20.2.1.tgz"
@@ -5452,6 +5457,15 @@
   dependencies:
     "expo-modules-core" "~0.4.4"
     "fontfaceobserver" "^2.1.0"
+
+"expo-image-picker@~11.0.3":
+  "integrity" "sha512-s7nXB+hop5htcETlSvtPhEGE6RM4BX0G2e6mhr2SjJdJPAFn+hY7R3vCGBFMtxV11Gjzr0D1w2y9gDqhOj0GKg=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/expo-image-picker/-/expo-image-picker-11.0.3.tgz"
+  "version" "11.0.3"
+  dependencies:
+    "@expo/config-plugins" "^4.0.2"
+    "expo-modules-core" "~0.4.4"
+    "uuid" "7.0.2"
 
 "expo-keep-awake@~10.0.0":
   "integrity" "sha1-J1o+AvmbwEKXkAR63RJsHczmDWM="
@@ -8544,10 +8558,10 @@
   dependencies:
     "emoji-datasource" "^6.0.0"
 
-"react-native-get-random-values@^1.4.0":
-  "integrity" "sha512-28KRYGpIG/upV8+k/qFA+TwGW+yGjmtOHaCduJHpOQK1QUTyhiA6E2IgL4UvvU2dybeCTYFmUi9wcEQ0GiWe5g=="
-  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/react-native-get-random-values/-/react-native-get-random-values-1.7.2.tgz"
-  "version" "1.7.2"
+"react-native-get-random-values@^1.4.0", "react-native-get-random-values@^1.8.0":
+  "integrity" "sha512-H/zghhun0T+UIJLmig3+ZuBCvF66rdbiWUfRSNS6kv5oDSpa1ZiVyvRWtuPesQpT8dXj+Bv7WJRQOUP+5TB1sA=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/react-native-get-random-values/-/react-native-get-random-values-1.8.0.tgz"
+  "version" "1.8.0"
   dependencies:
     "fast-base64-decode" "^1.0.0"
 
@@ -9825,7 +9839,22 @@
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/utils-merge/-/utils-merge-1.0.1.tgz"
   "version" "1.0.1"
 
-"uuid@^3.0.0", "uuid@^3.2.1", "uuid@^3.3.2", "uuid@^3.4.0":
+"uuid@^3.0.0":
+  "integrity" "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-3.4.0.tgz"
+  "version" "3.4.0"
+
+"uuid@^3.2.1":
+  "integrity" "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-3.4.0.tgz"
+  "version" "3.4.0"
+
+"uuid@^3.3.2":
+  "integrity" "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-3.4.0.tgz"
+  "version" "3.4.0"
+
+"uuid@^3.4.0":
   "integrity" "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-3.4.0.tgz"
   "version" "3.4.0"
@@ -9835,12 +9864,7 @@
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-7.0.3.tgz"
   "version" "7.0.3"
 
-"uuid@^8.3.0":
-  "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
-  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-8.3.2.tgz"
-  "version" "8.3.2"
-
-"uuid@^8.3.2":
+"uuid@^8.3.0", "uuid@^8.3.2":
   "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-8.3.2.tgz"
   "version" "8.3.2"
@@ -9849,6 +9873,11 @@
   "integrity" "sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA=="
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-3.3.2.tgz"
   "version" "3.3.2"
+
+"uuid@7.0.2":
+  "integrity" "sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/uuid/-/uuid-7.0.2.tgz"
+  "version" "7.0.2"
 
 "v8-to-istanbul@^7.0.0":
   "integrity" "sha1-MImNGn+gyE0iWiwUNPuVjykIg8E="

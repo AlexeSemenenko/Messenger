@@ -36,7 +36,16 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-  }
+  },
+  sendImageContainer: {
+    flexDirection: "row",
+    marginVertical: 10,
+    alignSelf: "stretch",
+    justifyContent: "space-between",
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 10,
+  },
 })
 
 export default styles

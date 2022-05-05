@@ -56,7 +56,8 @@
             }
           ]
         }
-      }
+      },
+      "dependsOn": []
     }
   },
   "function": {
@@ -64,6 +65,13 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "storage": {
+    "s38f9ed73a": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
     }
   }
 }
