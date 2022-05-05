@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Image, Text, View, Pressable, ActivityIndicator } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { Auth, DataStore } from 'aws-amplify'
+import moment from 'moment'
 
 import styles from './styles'
 import { ChatRoom , ChatRoomUser, User, Message} from '../../src/models'
@@ -56,6 +57,8 @@ function ChatRoomItem(props: Props): JSX.Element {
     return <ActivityIndicator />
   }
 
+  const time = moment(lastMessage?.createdAt).from(moment())
+
   return (
     <Pressable onPress={onPress} style={styles.container}>
       <Image
@@ -78,7 +81,7 @@ function ChatRoomItem(props: Props): JSX.Element {
           </Text>
 
           <Text style={styles.text}>
-            {lastMessage?.createdAt}
+            {time}
           </Text>
         </View>
 
