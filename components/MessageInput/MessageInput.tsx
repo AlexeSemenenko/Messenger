@@ -181,6 +181,7 @@ function MessageInput(props: Props): JSX.Element {
     const newMessage = await DataStore.save(new Message({
       content: message,
       image: key,
+      status: 'SENT',
       userID: user.attributes.sub,
       chatroomID: props.chatRoom.id,
     }))

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
 import { useRoute } from '@react-navigation/native'
 import { DataStore, SortDirection } from 'aws-amplify'
 
