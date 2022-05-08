@@ -88,7 +88,12 @@ function ChatRoomScreen(): JSX.Element {
     <SafeAreaView style={styles.page}>
       <FlatList
         data= {messages}
-        renderItem={({ item }) => <Message message={item} setAsMessageReply={() => setMessageReplyTo(item)} />}
+        renderItem={({ item }) =>
+          <Message
+            message={item}
+            setAsMessageReply={() => setMessageReplyTo(item)}
+          />
+        }
         inverted
       />
 

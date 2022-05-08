@@ -281,7 +281,7 @@ function MessageInput(props: Props): JSX.Element {
             <FontAwesome
               name="smile-o"
               size={24}
-              color="grey"
+              color={isEmojiPickerOpen ? '#FF9200' : 'grey'}
               style={styles.icon}
             />
           </Pressable>

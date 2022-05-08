@@ -16,6 +16,8 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: '#FF9200',
+    fontSize: 16,
   }
 })
 
