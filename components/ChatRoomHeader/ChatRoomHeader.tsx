@@ -1,5 +1,4 @@
 import { Image, Text, View } from 'react-native'
-import { AntDesign, Feather, SimpleLineIcons } from '@expo/vector-icons'
 import React, { useEffect, useState } from 'react'
 import { Auth, DataStore } from 'aws-amplify'
 import moment from 'moment'
@@ -8,7 +7,7 @@ import styles from './styles'
 import { ChatRoomUser, User } from '../../src/models'
 
 // @ts-ignore
-function ChatRoomHeader({ id, children }) {
+function ChatRoomHeader({ id }) {
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(
@@ -58,13 +57,6 @@ function ChatRoomHeader({ id, children }) {
 
         <Text>{getLastOnline()}</Text>
       </View>
-
-
-      <AntDesign name="videocamera" size={24} color="black" />
-
-      <Feather name="phone" size={24} color="black" style={{ marginLeft: 10 }} />
-
-      <SimpleLineIcons name="options-vertical" size={24} color="black" style={styles.icon} />
     </View>
   )
 }

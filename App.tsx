@@ -9,7 +9,7 @@ import useCachedResources from './hooks/useCachedResources'
 import useColorScheme from './hooks/useColorScheme'
 import Navigation from './navigation'
 import config from './src/aws-exports'
-import { Message as MessageModel, Message, User } from './src/models'
+import {  User } from './src/models'
 
 Amplify.configure(config)
 
@@ -18,32 +18,6 @@ function App() {
   const colorScheme = useColorScheme()
 
   const [user, setUser] = useState<User | null>(null)
-
-  useEffect(
-    () => {
-      const listener = Hub.listen('datastore', async hubData => {
-        const  { event, data } = hubData.payload
-
-        if (event === 'outboxMutationProcessed' &&
-          data.model === Message &&
-          !(['DELIVERED', 'READ'].includes(data.element.status))
-        ) {
-          // set the message status to delivered
-          DataStore.save(
-            Message.copyOf(
-              data.element,
-              (updated) => {
-                  updated.status = 'DELIVERED'
-              }
-            )
-          )
-        }
-      })
-
-      return () => listener()
-    },
-    []
-  )
 
   useEffect(
     () => {

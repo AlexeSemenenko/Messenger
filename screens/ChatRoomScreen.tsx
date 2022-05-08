@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 function ChatRoomScreen(): JSX.Element {
   const [messages, setMessages] = useState<MessageModel[]>([])
   const [chatRoom, setChatRoom] = useState<ChatRoom | null>(null)
+  const [messageReplyTo, setMessageReplyTo] = useState<MessageModel | null>(null)
 
   const route = useRoute()
 
@@ -87,11 +88,15 @@ function ChatRoomScreen(): JSX.Element {
     <SafeAreaView style={styles.page}>
       <FlatList
         data= {messages}
-        renderItem={({ item }) => <Message message={item} />}
+        renderItem={({ item }) => <Message message={item} setAsMessageReply={() => setMessageReplyTo(item)} />}
         inverted
       />
 
-      <MessageInput chatRoom={chatRoom}/>
+      <MessageInput
+        chatRoom={chatRoom}
+        messageReplyTo={messageReplyTo}
+        removeMessageReply={() => setMessageReplyTo(null)}
+      />
     </SafeAreaView>
   )
 }

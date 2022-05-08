@@ -2,19 +2,22 @@ import React, { useEffect, useState } from 'react'
 import 'react-native-get-random-values'
 import EmojiSelector from 'react-native-emoji-selector'
 import * as ImagePicker from 'expo-image-picker';
-import { Image, KeyboardAvoidingView, Platform, Pressable, TextInput, View } from 'react-native'
+import { Image, KeyboardAvoidingView, Platform, Pressable, TextInput, View, Text } from 'react-native'
 import { AntDesign, Feather, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { Auth, DataStore, Storage } from 'aws-amplify'
 import { v4 as uuidv4 } from 'uuid'
-import { Audio, AVPlaybackStatus } from 'expo-av'
+import { Audio } from 'expo-av'
 
-import { ChatRoom, Message } from '../../src/models'
+import { ChatRoom, Message as MessageModel } from '../../src/models'
 
 import styles from './styles'
 import AudioPlayer from '../AudioPlayer'
+import MessageReply from '../MessageReply'
 
 type Props = {
-   chatRoom: ChatRoom
+  chatRoom: ChatRoom
+  messageReplyTo: MessageModel | null
+  removeMessageReply: () => void
 }
 
 function MessageInput(props: Props): JSX.Element {
@@ -52,6 +55,7 @@ function MessageInput(props: Props): JSX.Element {
     setIsEmojiPickerOpen(false)
     setImgProgress(0)
     setSoundUri(null)
+    props.removeMessageReply()
   }
 
   function handlePlusClick(): void {
@@ -59,7 +63,7 @@ function MessageInput(props: Props): JSX.Element {
   }
 
 
-  async function updateLastMessage(newMessage: Message): Promise<void> {
+  async function updateLastMessage(newMessage: MessageModel): Promise<void> {
      DataStore.save(ChatRoom.copyOf(props.chatRoom, updatedChatRoom => {
        updatedChatRoom.LastMessage = newMessage
      }))
@@ -72,8 +76,6 @@ function MessageInput(props: Props): JSX.Element {
       handleSendAudio()
     } else if (message) {
       handleSendMessage()
-    } else {
-      handlePlusClick()
     }
   }
 
@@ -132,11 +134,12 @@ function MessageInput(props: Props): JSX.Element {
 
     const user = await Auth.currentAuthenticatedUser()
 
-    const newMessage = await DataStore.save(new Message({
+    const newMessage = await DataStore.save(new MessageModel({
       content: message,
       audio: key,
       userID: user.attributes.sub,
       chatroomID: props.chatRoom.id,
+      replyToMessageID: props.messageReplyTo?.id,
     }))
 
     updateLastMessage(newMessage)
@@ -147,10 +150,11 @@ function MessageInput(props: Props): JSX.Element {
   async function handleSendMessage(): Promise<void> {
     const user = await Auth.currentAuthenticatedUser()
 
-    const newMessage = await DataStore.save(new Message({
+    const newMessage = await DataStore.save(new MessageModel({
       content: message,
       userID: user.attributes.sub,
       chatroomID: props.chatRoom.id,
+      replyToMessageID: props.messageReplyTo?.id,
     }))
 
     updateLastMessage(newMessage)
@@ -178,12 +182,12 @@ function MessageInput(props: Props): JSX.Element {
 
     const user = await Auth.currentAuthenticatedUser()
 
-    const newMessage = await DataStore.save(new Message({
+    const newMessage = await DataStore.save(new MessageModel({
       content: message,
       image: key,
-      status: 'SENT',
       userID: user.attributes.sub,
       chatroomID: props.chatRoom.id,
+      replyToMessageID: props.messageReplyTo?.id,
     }))
 
     updateLastMessage(newMessage)
@@ -226,6 +230,27 @@ function MessageInput(props: Props): JSX.Element {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={100}
     >
+      {props.messageReplyTo && (
+        <View
+          style={{
+            backgroundColor: '#F2F2F2',
+            padding: 5,
+            marginBottom: 10,
+            borderRadius: 10,
+            flexDirection: 'row'
+          }}
+        >
+          <View style={{ flex: 1 }}>
+            <Text style={{ padding: 5 }}>Reply to:</Text>
+            <MessageReply message={props.messageReplyTo} />
+          </View>
+
+          <Pressable onPress={props.removeMessageReply}>
+            <AntDesign style={{ margin: 5 }} name="close" size={18} color="black" />
+          </Pressable>
+        </View>
+      )}
+
       {image && (
         <View style={styles.sendImageContainer}>
           <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 10 }} />
@@ -287,11 +312,7 @@ function MessageInput(props: Props): JSX.Element {
         </View>
 
         <Pressable onPress={handlePress} style={styles.buttonContainer}>
-          {message || image || soundUri ? (
-            <MaterialIcons name="send" size={20} color="white" />
-          ) : (
-            <AntDesign name="plus" size={24} color="white" />
-          )}
+          <MaterialIcons name="send" size={20} color="white" />
         </Pressable>
       </View>
 
