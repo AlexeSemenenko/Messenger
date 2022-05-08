@@ -12,9 +12,9 @@ type Props = {
 }
 
 function ChatRoomItem(props: Props): JSX.Element {
-  // const [users, setUsers] = useState<User[]>([])
   const [user, setUser] = useState<User | null>(null)
   const [lastMessage, setLastMessage] = useState<Message | undefined>()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const navigation = useNavigation()
 
@@ -25,11 +25,10 @@ function ChatRoomItem(props: Props): JSX.Element {
           .filter(it => it.chatRoom.id === props.chatRoom.id)
           .map(it => it.user)
 
-        // setUsers(fetchedUsers)
-
         const authUser = await Auth.currentAuthenticatedUser()
 
         setUser(fetchedUsers.find(it => it.id !== authUser.attributes.sub) || null)
+        setIsLoading(false)
       }
 
       fetchUsers()
@@ -53,7 +52,7 @@ function ChatRoomItem(props: Props): JSX.Element {
     navigation.navigate('ChatRoom', { id: props.chatRoom.id })
   }
 
-  if (!user) {
+  if (isLoading) {
     return <ActivityIndicator />
   }
 

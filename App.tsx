@@ -10,6 +10,7 @@ import useColorScheme from './hooks/useColorScheme'
 import Navigation from './navigation'
 import config from './src/aws-exports'
 import {  User } from './src/models'
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 
 Amplify.configure(config)
 
@@ -85,7 +86,9 @@ function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
+        <ActionSheetProvider>
+          <Navigation colorScheme={colorScheme} />
+        </ActionSheetProvider>
         <StatusBar />
       </SafeAreaProvider>
     )

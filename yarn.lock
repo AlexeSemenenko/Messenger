@@ -3277,6 +3277,14 @@
     "semver" "7.3.2"
     "xml2js" "0.4.23"
 
+"@expo/react-native-action-sheet@^3.13.0":
+  "integrity" "sha512-EFLK35TBsM28W43SY54lISAIvjEm9584LIRWXsYaf5sgmfF65oWAOQP4UyKxMPLYGoaKjnCAJVFNtZUK80ss9A=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/@expo/react-native-action-sheet/-/react-native-action-sheet-3.13.0.tgz"
+  "version" "3.13.0"
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.1"
+    "hoist-non-react-statics" "^3.3.0"
+
 "@expo/sdk-runtime-versions@^1.0.0":
   "integrity" "sha512-Doz2bfiPndXYFPMRwPyGa1k5QaKDVpY806UJj570epIiMzWaYyCtobasyfC++qfIXVb5Ocy7r3tP9d62hAQ7IQ=="
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/@expo/sdk-runtime-versions/-/sdk-runtime-versions-1.0.0.tgz"
@@ -3873,6 +3881,14 @@
   "version" "4.1.5"
   dependencies:
     "@types/node" "*"
+
+"@types/hoist-non-react-statics@^3.3.1":
+  "integrity" "sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz"
+  "version" "3.3.1"
+  dependencies:
+    "@types/react" "*"
+    "hoist-non-react-statics" "^3.3.0"
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   "integrity" "sha1-S6jdtyAiH0MuRDvV+RF/0iz9R2I="
@@ -6046,6 +6062,13 @@
   "version" "0.0.6"
   dependencies:
     "source-map" "^0.7.3"
+
+"hoist-non-react-statics@^3.3.0":
+  "integrity" "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
+  "version" "3.3.2"
+  dependencies:
+    "react-is" "^16.7.0"
 
 "hosted-git-info@^2.1.4":
   "integrity" "sha1-3/wL+aIcAiCQkPKqaUKeFBTa8/k="
@@ -8550,6 +8573,11 @@
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+"react-is@^16.7.0":
+  "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
+  "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/react-is/-/react-is-16.13.1.tgz"
+  "version" "16.13.1"
+
 "react-is@^16.8.1":
   "integrity" "sha1-eJcppNw23imZ3BVt1sHZwYzqVqQ="
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/react-is/-/react-is-16.13.1.tgz"
@@ -8664,7 +8692,7 @@
     "react-shallow-renderer" "^16.13.1"
     "scheduler" "^0.20.2"
 
-"react@*", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@>=17.0.1", "react@16 || 17", "react@17.0.1", "react@17.0.2":
+"react@*", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@>=16.3.0", "react@>=17.0.1", "react@16 || 17", "react@17.0.1", "react@17.0.2":
   "integrity" "sha1-bgYAQWvVdXTj+G2S7bo9kAhyYSc="
   "resolved" "https://coladadev.jfrog.io/coladadev/api/npm/npm/react/-/react-17.0.1.tgz"
   "version" "17.0.1"
