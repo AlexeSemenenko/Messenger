@@ -28,14 +28,22 @@ function UsersScreen() {
   const [users, setUsers] = useState<User[]>([])
   const [selectedUsers, setSelectedUsers] = useState<User[]>([])
   const [isNewGroup, setIsNewGroup] = useState<boolean>(false)
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
 
   const navigation = useNavigation()
 
   useEffect(
     () => {
-      DataStore.query(User).then(setUsers)
+      Auth.currentAuthenticatedUser().then(response => setCurrentUserId(response.attributes.sub))
     },
     []
+  )
+
+  useEffect(
+    () => {
+      DataStore.query(User).then(response => response.filter(it => it.id !== currentUserId)).then(setUsers)
+    },
+    [currentUserId]
   )
 
   async function addUserToChatRoom(user: User, chatRoom: ChatRoom) {
@@ -53,12 +61,15 @@ function UsersScreen() {
 
     const newChatRoomData = {
       newMessages: 0,
-      Admin: dbUser,
     }
 
     if (users.length > 1) {
+      // @ts-ignore
       newChatRoomData.name = "Group"
+      // @ts-ignore
       newChatRoomData.imageUri = "https://icon-library.com/images/icon-groups/icon-groups-26.jpg"
+      // @ts-ignore
+      newChatRoomData.Admin = dbUser
     }
 
     const newChatRoom = await  DataStore.save(new ChatRoom(newChatRoomData))

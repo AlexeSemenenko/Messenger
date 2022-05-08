@@ -1,7 +1,8 @@
-import { Image, Text, View } from 'react-native'
+import { Image, Pressable, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Auth, DataStore } from 'aws-amplify'
 import moment from 'moment'
+import { useNavigation } from '@react-navigation/core'
 
 import styles from './styles'
 import { ChatRoomUser, User, ChatRoom } from '../../src/models'
@@ -11,6 +12,8 @@ function ChatRoomHeader({ id }) {
   const [user, setUser] = useState<User | null>(null)
   const [charRoom, setChatRoom] = useState<ChatRoom | undefined>(undefined)
   const [allUsers, setAllUsers] = useState<User[]>([])
+
+  const navigation = useNavigation()
 
   async function fetchUsers(): Promise<void> {
     const fetchedUsers = (await DataStore.query(ChatRoomUser))
@@ -61,6 +64,11 @@ function ChatRoomHeader({ id }) {
     }
   }
 
+  function openInfo() {
+    // @ts-ignore
+    navigation.navigate('GroupInfoScreen', { id })
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -68,7 +76,7 @@ function ChatRoomHeader({ id }) {
         style={styles.img}
       />
 
-      <View style={{ flex: 1, marginLeft: 10 }} >
+      <Pressable onPress={openInfo} style={{ flex: 1, marginLeft: 10 }} >
         <Text style={styles.text}>{charRoom?.name ?? user?.name}</Text>
 
         <Text
@@ -77,7 +85,7 @@ function ChatRoomHeader({ id }) {
         >
           {isGroup ? getUserNames() : getLastOnline()}
         </Text>
-      </View>
+      </Pressable>
     </View>
   )
 }
