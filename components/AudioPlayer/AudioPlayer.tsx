@@ -84,7 +84,7 @@ function AudioPlayer({ soundUri }: Props) {
       </Pressable>
 
       <View style={styles.audioProgressBG}>
-        <View style={[styles.audioProgressFG, { left: `${audioProgress * 100}%` }]} />
+        <View style={[styles.audioProgressFG, { left: `${audioProgress * 98}%` }]} />
       </View>
 
       <Text>

@@ -13,8 +13,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   text: {
-    flex: 1,
-    marginLeft: 10,
     fontWeight: 'bold',
   },
   icon: {
