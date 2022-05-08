@@ -20,17 +20,11 @@ function HomeHeader() {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{ uri: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.jpg'}}
-        style={styles.img}
-      />
+      <Feather name="edit-2" size={24} color="#FF9200" style={{ marginRight: 10 }} onPress={handleGoToUsersList} />
 
       <Text style={styles.text}>Chats</Text>
 
-      {/*<Feather name="camera" size={24} color="black" />*/}
-      <Feather name="edit-2" size={24} color="black" style={{ marginRight: 10 }} onPress={handleGoToUsersList} />
-
-      <Ionicons name="exit-outline" size={24} color="black" onPress={handleLogOut}/>
+      <Ionicons name="exit-outline" size={24} color="#FF9200" onPress={handleLogOut}/>
     </View>
   )
 }

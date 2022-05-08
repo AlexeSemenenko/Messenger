@@ -62,7 +62,7 @@ function ChatRoomItem(props: Props): JSX.Element {
   return (
     <Pressable onPress={onPress} style={styles.container}>
       <Image
-        source={{ uri: user.imageUri }}
+        source={{ uri: props.chatRoom.imageUri ?? user.imageUri }}
         style={styles.image}
       />
 
@@ -77,7 +77,7 @@ function ChatRoomItem(props: Props): JSX.Element {
       <View style={styles.secondLevelContainer}>
         <View style={styles.row}>
           <Text style={styles.name}>
-            {user.name}
+            {props.chatRoom.name ?? user.name}
           </Text>
 
           <Text style={styles.text}>
