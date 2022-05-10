@@ -65,6 +65,7 @@ export declare class User {
   readonly chatrooms?: (ChatRoomUser | null)[];
   readonly lastOnlineAt?: number;
   readonly publicKey?: string;
+  readonly realName?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User, UserMetaData>);

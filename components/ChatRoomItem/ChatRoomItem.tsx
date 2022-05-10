@@ -76,7 +76,7 @@ function ChatRoomItem(props: Props): JSX.Element {
       <View style={styles.secondLevelContainer}>
         <View style={styles.row}>
           <Text style={styles.name}>
-            {props.chatRoom.name ?? user?.name}
+            {props.chatRoom.name ?? user?.realName ?? user?.name}
           </Text>
 
           <Text style={styles.text}>

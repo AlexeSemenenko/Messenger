@@ -26,7 +26,7 @@ function UserItem(props: Props): JSX.Element {
       <View style={styles.secondLevelContainer}>
         <View style={styles.row}>
           <Text style={styles.name}>
-            {props.user.name}
+            {props.user.realName ?? props.user.name}
           </Text>
 
           {props.isAdmin && (

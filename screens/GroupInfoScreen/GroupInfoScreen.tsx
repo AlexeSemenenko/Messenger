@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, StyleSheet, FlatList, Alert } from 'react-native'
+import { Text, View, StyleSheet, FlatList, Alert, TextInput, Pressable } from 'react-native'
 import { Auth, DataStore } from 'aws-amplify'
 import { useRoute } from '@react-navigation/native'
 
-import { ChatRoom, ChatRoomUser, User } from '../../src/models'
+import { ChatRoom, ChatRoomUser, User as UserModel, User } from '../../src/models'
 import UserItem from '../../components/UserItem'
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
     paddingBottom: 10,
     marginLeft: 10,
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
 function GroupInfoScreen() {
   const [chatRoom, setChatRoom] = useState<ChatRoom | null>(null)
   const [allUsers, setAllUsers] = useState<User[]>([])
+  const [chatRoomName, setChatRoomName] = useState<string | null>(null)
 
   const route = useRoute()
 
@@ -57,6 +58,13 @@ function GroupInfoScreen() {
       fetchUsers()
     },
     []
+  )
+
+  useEffect(
+    () => {
+      setChatRoomName(chatRoom?.name ?? null)
+    },
+    [chatRoom]
   )
 
   async function confirmDelete(user: User) {
@@ -96,8 +104,64 @@ function GroupInfoScreen() {
     }
   }
 
+  async function handleSave() {
+    if (!chatRoom) {
+      return
+    }
+
+    if (!chatRoomName) {
+      Alert.alert('Enter your name')
+      return
+    }
+
+    await DataStore.save(
+      ChatRoom.copyOf(
+        chatRoom,
+        (updated) => {
+          updated.name = chatRoomName
+        }
+      )
+    )
+
+    Alert.alert('Successfully saved')
+  }
+
   return (
     <View style={styles.root}>
+      {!!chatRoom?.Admin && (
+        <>
+          <Text style={styles.title}>Group Name</Text>
+
+          <TextInput
+            style={{
+              marginHorizontal: 10,
+              padding: 15,
+              borderColor: '#FF9200',
+              borderWidth: 1,
+              borderRadius: 10,
+            }}
+            value={chatRoomName!}
+            onChangeText={setChatRoomName}
+            placeholder="Name..."
+          />
+
+          <Pressable
+            style={{
+              backgroundColor: '#FF9200',
+              padding: 13,
+              margin: 10,
+              marginBottom: 20,
+              borderRadius: 50,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            onPress={handleSave}
+          >
+            <Text style={{ fontWeight: 'bold', }}>Save</Text>
+          </Pressable>
+        </>
+      )}
+
       <Text style={styles.title}>Members</Text>
 
       <FlatList
