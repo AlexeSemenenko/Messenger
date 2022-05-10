@@ -9,6 +9,7 @@ import UsersScreen from '../screens/UsersScreen'
 import HomeHeader from '../components/HomeHeader'
 import ChatRoomHeader from '../components/ChatRoomHeader'
 import GroupInfoScreen from '../screens/GroupInfoScreen'
+import SettingsScreen from '../screens/SettingsScreen'
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -60,6 +61,17 @@ function RootNavigator() {
           headerBackTitleVisible: false,
         }}
       />
+
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Settings',
+          headerTintColor: '#FF9200',
+          headerBackTitleVisible: false,
+        }}
+      />
+
     </Stack.Navigator>
   )
 }

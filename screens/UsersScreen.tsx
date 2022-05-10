@@ -28,9 +28,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontWeight: 'bold',
   },
-  input: {
-
-  },
 })
 
 function UsersScreen() {

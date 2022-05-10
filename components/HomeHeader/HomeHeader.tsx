@@ -2,21 +2,20 @@ import React from 'react'
 import { Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { AntDesign } from '@expo/vector-icons'
-import { Auth, DataStore } from 'aws-amplify'
 
 import styles from './styles'
 
 function HomeHeader() {
   const navigation = useNavigation()
 
-  async function handleLogOut() {
-    // await DataStore.clear()
-    Auth.signOut()
-  }
-
   function handleGoToUsersList(): void {
     // @ts-ignore
     navigation.navigate('UsersScreen')
+  }
+
+  function handleGoToSettings(): void {
+    // @ts-ignore
+    navigation.navigate('Settings')
   }
 
   return (
@@ -25,7 +24,7 @@ function HomeHeader() {
 
       <Text style={styles.text}>Chats</Text>
 
-      <AntDesign name="logout" size={24} color="#FF9200" onPress={handleLogOut} />
+      <AntDesign style={{ marginRight: 10 }} name="setting" size={24} color="#FF9200" onPress={handleGoToSettings} />
     </View>
   )
 }
