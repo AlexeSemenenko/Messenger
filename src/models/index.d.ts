@@ -33,6 +33,7 @@ export declare class Message {
   readonly audio?: string;
   readonly status?: MessageStatus | keyof typeof MessageStatus;
   readonly replyToMessageID?: string;
+  readonly forUserId?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Message, MessageMetaData>);
@@ -64,6 +65,8 @@ export declare class User {
   readonly Messages?: (Message | null)[];
   readonly chatrooms?: (ChatRoomUser | null)[];
   readonly lastOnlineAt?: number;
+  readonly publicKey?: string;
+  readonly realName?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User, UserMetaData>);

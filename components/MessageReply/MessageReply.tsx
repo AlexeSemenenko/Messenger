@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.89)',
   },
   containerMate: {
-    backgroundColor: '#FF9200',
+    backgroundColor: 'rgb(255,174,0)',
   },
   messageReply: {
     backgroundColor: 'gray',

@@ -56,7 +56,7 @@ function ChatRoomItem(props: Props): JSX.Element {
     return <ActivityIndicator />
   }
 
-  const time = moment(lastMessage?.createdAt).from(moment())
+  // const time = moment(lastMessage?.createdAt).from(moment())
 
   return (
     <Pressable onPress={onPress} style={styles.container}>
@@ -76,15 +76,15 @@ function ChatRoomItem(props: Props): JSX.Element {
       <View style={styles.secondLevelContainer}>
         <View style={styles.row}>
           <Text style={styles.name}>
-            {props.chatRoom.name ?? user?.name}
+            {props.chatRoom.name ?? user?.realName ?? user?.name}
           </Text>
 
-          <Text style={styles.text}>
-            {time}
-          </Text>
+          {/*<Text style={styles.text}>*/}
+          {/*  {time}*/}
+          {/*</Text>*/}
         </View>
 
-        <Text numberOfLines={1} style={styles.text}>{lastMessage?.content}</Text>
+        {/*<Text numberOfLines={1} style={styles.text}>{lastMessage?.content}</Text>*/}
       </View>
     </Pressable>
   )

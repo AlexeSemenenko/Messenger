@@ -1,6 +1,7 @@
 import React, { useEffect, useState  } from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, ScrollView, RefreshControl, NativeModules } from 'react-native'
 import { Auth, DataStore } from 'aws-amplify'
+import RNRestart from 'react-native-restart'
 
 import { ChatRoom, ChatRoomUser } from '../src/models'
 

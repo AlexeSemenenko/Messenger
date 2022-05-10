@@ -3,11 +3,13 @@ import { ActivityIndicator, Alert, Pressable, StyleSheet, Text, useWindowDimensi
 import { Auth, DataStore, Storage } from 'aws-amplify'
 // @ts-ignore
 import { S3Image } from 'aws-amplify-react-native'
+import { box } from 'tweetnacl'
+import { useActionSheet } from '@expo/react-native-action-sheet'
 
 import { Message as MessageModel, User } from '../../src/models'
 import AudioPlayer from '../AudioPlayer'
 import MessageReply from '../MessageReply'
-import { useActionSheet } from '@expo/react-native-action-sheet'
+import { decrypt, getMySecretKey, stringToUint8Array } from '../../utils/crypto'
 
 const styles = StyleSheet.create({
   container: {
@@ -33,12 +35,14 @@ type Props = {
   setAsMessageReply?: () => void
 }
 
-function Message({ message, setAsMessageReply }: Props): JSX.Element {
+function Message({ message: propMsg, setAsMessageReply }: Props): JSX.Element {
   const [repliedTo, setRepliedTo] = useState<MessageModel | undefined>(undefined)
   const [user, setUser] = useState<User | undefined>()
   const [isMe, setIsMe] = useState<boolean | null>(null)
   const [soundUri, setSoundUri] = useState<any>(null)
   const [isDeleted, setIsDeleted] = useState<boolean>(false)
+  const [message, setMessage] = useState<MessageModel>(propMsg)
+  const [decryptedMsg, setDecryptedMsg] = useState<string>('')
 
   const { width } = useWindowDimensions()
 
@@ -49,6 +53,13 @@ function Message({ message, setAsMessageReply }: Props): JSX.Element {
       DataStore.query(User, message.userID).then(setUser)
     },
     []
+  )
+
+  useEffect(
+    () => {
+      setMessage(propMsg)
+    },
+    [propMsg]
   )
 
   useEffect(
@@ -98,6 +109,34 @@ function Message({ message, setAsMessageReply }: Props): JSX.Element {
     },
     [message]
   )
+
+  // useEffect(
+  //   () => {
+  //     if (!message?.content || !user?.publicKey) {
+  //       return
+  //     }
+  //
+  //     const decryptMessage = async () => {
+  //       const secretKey = await getMySecretKey()
+  //
+  //       if (!secretKey) {
+  //         return
+  //       }
+  //
+  //       const sharedKey = box.before(
+  //         stringToUint8Array(user?.publicKey),
+  //         secretKey
+  //       )
+  //
+  //       const decrypted = decrypt(sharedKey, message.content)
+  //
+  //       setDecryptedMsg(decrypted.message)
+  //     }
+  //
+  //     decryptMessage()
+  //   },
+  //   [message, user]
+  // )
 
   async function handleDeleteMessage() {
     await DataStore.delete(message)

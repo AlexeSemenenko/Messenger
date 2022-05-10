@@ -77,7 +77,7 @@ function ChatRoomHeader({ id }) {
       />
 
       <Pressable onPress={openInfo} style={{ flex: 1, marginLeft: 10 }} >
-        <Text style={styles.text}>{charRoom?.name ?? user?.name}</Text>
+        <Text style={styles.text}>{charRoom?.name ?? user?.realName ?? user?.name}</Text>
 
         <Text
           numberOfLines={1}

@@ -1,5 +1,11 @@
-import  React, { useState, useEffect } from 'react'
-import { StyleSheet, SafeAreaView, FlatList, Pressable, Text } from 'react-native'
+import  React, { useState, useEffect, useRef, useCallback } from 'react'
+import {
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Pressable,
+  Text,
+} from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { Auth, DataStore } from 'aws-amplify'
 
@@ -30,6 +36,14 @@ function UsersScreen() {
   const [isNewGroup, setIsNewGroup] = useState<boolean>(false)
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
 
+  const [groupName, setGroupName] = useState<string>('')
+  const inputEl = useRef(null);
+  const handleInputSubmit = useCallback((ev) => {
+    const input =  ev.nativeEvent.text;
+
+    setGroupName(input)
+  }, [setGroupName]);
+
   const navigation = useNavigation()
 
   useEffect(
@@ -55,6 +69,9 @@ function UsersScreen() {
 
   async function createChatRoom(users: User[]): Promise<void> {
     // TODO if chat room exists don't create a new one
+    if (users.length === 0) {
+      return
+    }
 
     const authUser = await Auth.currentAuthenticatedUser()
     const dbUser = await DataStore.query(User, authUser.attributes.sub)
@@ -65,7 +82,7 @@ function UsersScreen() {
 
     if (users.length > 1) {
       // @ts-ignore
-      newChatRoomData.name = "Group"
+      newChatRoomData.name = groupName !== '' ? groupName : 'Group'
       // @ts-ignore
       newChatRoomData.imageUri = "https://icon-library.com/images/icon-groups/icon-groups-26.jpg"
       // @ts-ignore
@@ -104,13 +121,24 @@ function UsersScreen() {
 
   async function saveGroup() {
     await createChatRoom(selectedUsers)
+    setGroupName('')
+    setIsNewGroup(false)
+    setSelectedUsers([])
   }
 
   return (
     <SafeAreaView style={styles.page}>
       <FlatList
         data={users}
-        ListHeaderComponent={() => <NewGroupButton onPress={() => setIsNewGroup(!isNewGroup)} />}
+        ListHeaderComponent={() =>
+          <NewGroupButton
+            ref={inputEl}
+            changeName={handleInputSubmit}
+            isGroupCreating={isNewGroup}
+            groupName={groupName}
+            onPress={() => setIsNewGroup(!isNewGroup)}
+          />
+        }
         renderItem={({ item }) => (
           <UserItem
             user={item}
