@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import { useRoute } from '@react-navigation/native'
-import { DataStore, SortDirection } from 'aws-amplify'
+import { Auth, DataStore, SortDirection } from 'aws-amplify'
 
 import Message from '../components/Message'
 import MessageInput from '../components/MessageInput'
@@ -71,6 +71,7 @@ function ChatRoomScreen(): JSX.Element {
 
     const fetchedMessages = await DataStore.query(
       MessageModel,
+      // message => message.chatroomID("eq", chatRoom?.id).forUserId("eq", currentUser.attributes.sub),
       message => message.chatroomID("eq", chatRoom?.id),
       {
         sort: message => message.createdAt(SortDirection.DESCENDING)

@@ -3,10 +3,8 @@ import { Pressable, Text, TextInput, SafeAreaView, View, Alert } from 'react-nat
 import { Auth, DataStore } from 'aws-amplify'
 import AsyncStorage  from '@react-native-async-storage/async-storage'
 
-import { generateKeyPair } from '../utils/crypto'
+import { generateKeyPair, PRIVATE_KEY } from '../utils/crypto'
 import { User as UserModel } from '../src/models'
-
-const PRIVATE_KEY = 'PRIVATE_KEY'
 
 function SettingsScreen() {
   const [user, setUser] = useState<UserModel | undefined>(undefined)
@@ -133,16 +131,17 @@ function SettingsScreen() {
 
         <Pressable
           style={{
-            backgroundColor: '#FF9200',
+            backgroundColor: !user?.publicKey ? '#FF9200' : '#8A5106FF',
             padding: 13,
             margin: 10,
             borderRadius: 50,
             alignItems: 'center',
             justifyContent: 'center'
           }}
+          disabled={!!user?.publicKey}
           onPress={handleUpdateKeyPair}
         >
-          <Text style={{ fontWeight: 'bold', }}>Update key pair</Text>
+          <Text style={{ fontWeight: 'bold', }}>Add key pair</Text>
         </Pressable>
 
         <Pressable

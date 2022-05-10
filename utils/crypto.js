@@ -2,6 +2,10 @@ import { getRandomBytes } from 'expo-random'
 import { box, setPRNG } from 'tweetnacl'
 import { decode as decodeUTF8, encode as encodeUTF8 } from '@stablelib/utf8'
 import { decode as decodeBase64, encode as encodeBase64 } from '@stablelib/base64'
+import { Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+export const PRIVATE_KEY = 'PRIVATE_KEY'
 
 setPRNG((x, n) => {
   const randomBytes = getRandomBytes(n)
@@ -47,4 +51,24 @@ export const decrypt = (secretOrSharedKey, messageWithNonce, key) => {
 
   const base64DecryptedMessage = decodeUTF8(decrypted)
   return JSON.parse(base64DecryptedMessage)
+}
+
+export const stringToUint8Array = (str) =>
+  Uint8Array.from(
+    str
+      .split(',')
+      .map(it => parseInt(it))
+  )
+
+export const getMySecretKey = async () => {
+  const secretKeyString = await AsyncStorage.getItem(PRIVATE_KEY)
+  if (!secretKeyString) {
+    Alert.alert(
+      'Warning',
+      'You haven\'t set your key pair yet. Please generate it in settings',
+    )
+    return
+  }
+
+  return stringToUint8Array(secretKeyString)
 }

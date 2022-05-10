@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import 'react-native-get-random-values'
 import EmojiSelector from 'react-native-emoji-selector'
 import * as ImagePicker from 'expo-image-picker';
-import { Image, KeyboardAvoidingView, Platform, Pressable, TextInput, View, Text } from 'react-native'
+import { Image, KeyboardAvoidingView, Platform, Pressable, TextInput, View, Text, Alert } from 'react-native'
 import { AntDesign, Feather, FontAwesome, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { Auth, DataStore, Storage } from 'aws-amplify'
 import { v4 as uuidv4 } from 'uuid'
 import { Audio } from 'expo-av'
+import { box } from 'tweetnacl'
 
-import { ChatRoom, Message as MessageModel } from '../../src/models'
+import { ChatRoom, ChatRoomUser, Message as MessageModel, User } from '../../src/models'
 
 import styles from './styles'
 import AudioPlayer from '../AudioPlayer'
 import MessageReply from '../MessageReply'
+import { stringToUint8Array, encrypt, getMySecretKey } from '../../utils/crypto'
 
 type Props = {
   chatRoom: ChatRoom
@@ -147,12 +149,53 @@ function MessageInput(props: Props): JSX.Element {
     resetFields()
   }
 
+  // async function sendMessageToUser(user: User, fromUserId: string) {
+  //   const secretKey = await getMySecretKey()
+  //
+  //   if (!user.publicKey) {
+  //     Alert.alert(
+  //       'Warning',
+  //       'Your mate(s) has(have)n\'t set key pair yet. Until the user(s) will generate the key pair, he(they) cannot securely get your messages and won\'t get this',
+  //     )
+  //
+  //     return
+  //   }
+  //
+  //   if (!secretKey) {
+  //     return
+  //   }
+  //
+  //   const sharedKey = box.before(
+  //     secretKey,
+  //     stringToUint8Array(user.publicKey!)
+  //   )
+  //
+  //   const encryptedMessage = encrypt(sharedKey, { message })
+  //
+  //   const newMessage = await DataStore.save(new MessageModel({
+  //     content: message,
+  //     userID: fromUserId,
+  //     forUserId: user.id,
+  //     chatroomID: props.chatRoom.id,
+  //     replyToMessageID: props.messageReplyTo?.id,
+  //   }))
+  //
+  //   // updateLastMessage(newMessage)
+  // }
+
   async function handleSendMessage(): Promise<void> {
     const user = await Auth.currentAuthenticatedUser()
+
+    // const users = (await DataStore.query(ChatRoomUser))
+    //  .filter(it => it.chatRoom.id === props.chatRoom.id)
+    //  .map(it => it.user)
+
+    // await Promise.all(users.map(it => sendMessageToUser(it, user.attributes.sub)))
 
     const newMessage = await DataStore.save(new MessageModel({
       content: message,
       userID: user.attributes.sub,
+      // forUserId: user.id,
       chatroomID: props.chatRoom.id,
       replyToMessageID: props.messageReplyTo?.id,
     }))

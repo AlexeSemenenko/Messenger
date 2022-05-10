@@ -61,6 +61,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "forUserId": {
+                    "name": "forUserId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -460,5 +467,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "87e9c8aae5298f3d4cbf8383a048d709"
+    "version": "2739e5af38156b7458fce86d6e2ec5c8"
 };
