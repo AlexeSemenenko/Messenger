@@ -60,10 +60,6 @@ function MessageInput(props: Props): JSX.Element {
     props.removeMessageReply()
   }
 
-  function handlePlusClick(): void {
-    console.warn('plus clicked')
-  }
-
 
   async function updateLastMessage(newMessage: MessageModel): Promise<void> {
      DataStore.save(ChatRoom.copyOf(props.chatRoom, updatedChatRoom => {
@@ -166,8 +162,8 @@ function MessageInput(props: Props): JSX.Element {
   //   }
   //
   //   const sharedKey = box.before(
-  //     secretKey,
   //     stringToUint8Array(user.publicKey!)
+  //     secretKey,
   //   )
   //
   //   const encryptedMessage = encrypt(sharedKey, { message })

@@ -32,7 +32,7 @@ function SettingsScreen() {
   )
 
   async function handleLogOut() {
-    // await DataStore.clear()
+    await DataStore.clear()
     Auth.signOut()
   }
 
