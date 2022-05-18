@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Amplify, { Auth, DataStore } from 'aws-amplify'
+import { LogBox } from 'react-native'
 // @ts-ignore
 import { withAuthenticator } from 'aws-amplify-react-native'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
@@ -13,8 +14,9 @@ import config from './src/aws-exports'
 import {  User } from './src/models'
 
 Amplify.configure(config)
-
+console.disableYellowBox = true
 function App() {
+  LogBox.ignoreLogs(['Warning: ...'])
   const isLoadingComplete = useCachedResources()
   const colorScheme = useColorScheme()
 

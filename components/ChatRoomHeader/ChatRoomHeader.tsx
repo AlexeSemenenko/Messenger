@@ -47,7 +47,7 @@ function ChatRoomHeader({ id }) {
   const isGroup = allUsers.length > 2
 
   function getUserNames(): string {
-    return allUsers.map(it => it.name).join(', ')
+    return allUsers.map(it => it.realName).join(', ')
   }
 
   function getLastOnline() {
